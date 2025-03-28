@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>내 프로필</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="page-box" style="text-align: center;">
+        <h1>내 프로필</h1>
+
+        <img src="{{ user.profile_image or url_for('static', filename='default-profile.png') }}"
+             alt="프로필 이미지" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 15px;">
+
+        <p><strong>이름:</strong> {{ user.name }}</p>
+        <p><strong>아이디:</strong> {{ user.username }}</p>
+        <p><strong>학교:</strong> {{ user.school }}</p>
+        <p><strong>가입일:</strong> {{ user.created_at.strftime('%Y-%m-%d') }}</p>
+
+        <a href="/" class="action-button">← 메인으로</a>
+        <a href="/profile/edit" class="action-button">내 정보 수정</a>
+
+    </div>
+</body>
+</html>

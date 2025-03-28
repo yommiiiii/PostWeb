@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>내 정보 수정</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="page-box">
+        <h1>내 정보 수정</h1>
+
+        <form method="POST" enctype="multipart/form-data" action="/profile/edit">
+            <label>아이디 (수정 불가)</label>
+            <input type="text" name="username" value="{{ user.username }}" disabled>
+
+            <label>이름</label>
+            <input type="text" name="name" value="{{ user.name }}" required>
+
+            <label>학교</label>
+            <input type="text" name="school" value="{{ user.school }}" required>
+
+            <label>생일</label>
+            <input type="date" name="birthday" value="{{ user.birthday }}" required>
+
+            <label>나이</label>
+            <input type="number" name="age" value="{{ user.age }}" required readonly>
+
+            <label>프로필 이미지</label><br>
+            {% if user.profile_image %}
+                <img src="{{ user.profile_image }}" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 10px;"><br>
+            {% endif %}
+            <input type="file" name="profile_image">
+
+            <label>현재 비밀번호</label>
+            <input type="password" name="current_password" required>
+
+            <label>새 비밀번호</label>
+            <input type="password" name="new_password" required>
+
+            <label>새 비밀번호 확인</label>
+            <input type="password" name="confirm_password" required>
+
+            <br><br>
+            <button type="submit">수정 완료</button>
+        </form>
+
+        <a href="/profile" class="back-button">← 프로필로 돌아가기</a>
+    </div>
+</body>
+</html>

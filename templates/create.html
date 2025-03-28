@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>글 작성</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function togglePasswordField() {
+            var checkbox = document.getElementById("is_private");
+            var pwField = document.getElementById("password-field");
+            pwField.style.display = checkbox.checked ? "block" : "none";
+        }
+    </script>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="page-box">
+        <h1>글 작성</h1>
+        <form method="POST" enctype="multipart/form-data" action="/create">
+            <label>제목</label>
+            <input type="text" name="title" required>
+
+            <label>내용</label>
+            <textarea name="content" rows="6" required></textarea>
+
+            <div class="secret-box">
+                <label>
+                    <input type="checkbox" name="is_private" value="1" id="is_private" onclick="togglePasswordField()">
+                    비밀글로 작성하기
+                </label>
+                <div id="password-field" style="display: none; margin-top: 10px;">
+                    <label>게시글 비밀번호</label>
+                    <input type="password" name="post_password">
+                </div>
+            </div>
+
+            <div class="secret-box">
+                <label>파일 첨부</label><br>
+                <input type="file" name="file" class="action-button">
+            </div>
+
+            <button type="submit">등록</button>
+            <div style="margin-top: 10px;"></div>
+            <a href="/" class="back-button">← 목록으로</a>
+        </form>
+    </div>
+</body>
+</html>

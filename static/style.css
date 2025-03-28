@@ -1,0 +1,187 @@
+/* 전체 페이지 기본 스타일 */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f7f8fa;
+    margin: 0;
+    padding-top: 130px;
+    color: #333;
+}
+
+/* 상단 고정 바 */
+.fixed-top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f7f8fa;
+    padding: 20px 30px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    box-sizing: border-box;
+}
+
+.fixed-top-bar .left-section,
+.fixed-top-bar .right-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* 검색창 전체 박스 */
+.search-box {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-box input[type="text"],
+.search-box select {
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-right: 10px;
+}
+
+.search-box button {
+    padding: 10px 15px;
+    background-color: #f4f4f4;
+    color: #333;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-box button:hover {
+    background-color: #e0e0e0;
+    color: #000;
+}
+
+/* 공통 버튼 */
+.action-button,
+.back-button,
+.page-box button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.action-button:hover,
+.back-button:hover,
+.page-box button:hover {
+    background-color: #e0e0e0;
+    color: #000;
+}
+
+/* 게시글 목록 박스 */
+.post-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.post-card .profile {
+    flex-shrink: 0;
+}
+
+.post-card .content {
+    flex-grow: 1;
+}
+
+.post-card .date {
+    flex-shrink: 0;
+    color: #888;
+    font-size: 13px;
+}
+
+.post-card h2 a {
+    text-decoration: none;
+    color: #000000; 
+    font-size: 22px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.post-card h2 a:hover {
+    text-decoration: underline;
+}
+
+/* 공통 박스 레이아웃 */
+.page-box {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    margin: 30px auto;
+}
+
+/* 회원가입 페이지 더 크게 */
+.page-box.register {
+    max-width: 70vw;
+}
+
+/* 폼 요소 통일 스타일 */
+.page-box input[type="text"],
+.page-box input[type="password"],
+.page-box input[type="date"],
+.page-box input[type="number"],
+.page-box textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+/* 비밀글 & 파일 업로드 묶기 */
+.secret-box {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+}
+
+/* 회원가입 버튼 + 로그인 버튼 옆에 배치 */
+.form-buttons-inline {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* flash 메시지 - 흰색 박스 스타일 */
+.flash-messages {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px 0;
+    color: #555;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}

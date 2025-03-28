@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="fixed-top-bar">
+        <div class="left-section">
+            <form method="GET" action="/" class="search-box">
+                <input type="text" name="keyword" placeholder="검색어 입력" value="{{ keyword }}" required>
+                <select name="category">
+                    <option value="title" {% if category == 'title' %}selected{% endif %}>제목</option>
+                    <option value="content" {% if category == 'content' %}selected{% endif %}>내용</option>
+                    <option value="all" {% if category == 'all' %}selected{% endif %}>제목 + 내용</option>
+                </select>
+                <button type="submit">검색</button>
+            </form>
+            <a href="/" class="action-button">전체 목록 보기</a>
+            <a href="/create" class="action-button">글 작성하기</a>
+        </div>
+
+        <div class="right-section">
+            {% if session.get('user_id') %}
+                <span><strong>{{ session['username'] }}</strong> 님 환영합니다!</span>
+                <a href="/logout" class="action-button">로그아웃</a>
+                <a href="/profile" class="action-button">내 프로필</a>
+            {% else %}
+                <a href="/login" class="action-button">로그인</a>
+                <a href="/register" class="action-button">회원가입</a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% for post in posts %}
+    <div class="post-card">
+        <div class="profile">
+            <a href="/user/{{ post.user_id }}">
+                <img src="{{ post.profile_image or url_for('static', filename='default-profile.png') }}" style="width: 40px; height: 40px; border-radius: 50%;">
+            </a>
+        </div>
+        <div class="content">
+            <h2>
+                <a href="/post/{{ post.id }}">
+                    {% if post.is_private %}
+                         비밀글입니다
+                    {% else %}
+                         {{ post.title }}
+                    {% endif %}
+                </a>
+            </h2>
+            {% if not post.is_private %}
+                <p>{{ post.content }}</p>
+            {% endif %}
+        </div>
+        <div class="date">
+            <small>{{ post.created_at }}</small>
+        </div>
+    </div>
+    {% else %}
+        <p>게시글이 없습니다.</p>
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="page-box register">
+        <h1>회원가입</h1>
+
+        <form method="POST" action="/register">
+            <label>아이디</label>
+            <input type="text" name="username" required>
+
+            <label>비밀번호</label>
+            <input type="password" name="password" required>
+
+            <label>이름</label>
+            <input type="text" name="name" required>
+
+            <label>학교</label>
+            <input type="text" name="school" required>
+
+            <label>생일</label>
+            <input type="date" name="birthday" required>
+
+            <div class="form-buttons-inline">
+                <button type="submit">회원가입</button>
+                <a href="/login" class="action-button">← 로그인 화면으로</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

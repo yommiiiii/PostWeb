@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="page-box">
+        <h1>{{ post.title }}</h1>
+
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 15px; color: #666; margin-bottom: 10px;">
+            <a href="/user/{{ post.user_id }}" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+                <img src="{{ post.profile_image or url_for('static', filename='default-profile.png') }}"
+                     alt="프로필 이미지" style="width: 30px; height: 30px; border-radius: 50%;">
+                <span style="margin-left: 8px;">{{ post.name }}</span>
+            </a>
+        </div>
+
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+
+        <p style="font-size: 16px; line-height: 1.6; white-space: pre-wrap;">{{ post.content }}</p>
+
+        {% if post.file_path %}
+            {% set filename = post.file_path.split('/')[-1] %}
+            <a href="{{ url_for('download_file', filename=filename) }}" class="action-button">
+                파일 다운로드
+            </a>
+        {% endif %}
+
+
+        <small style="color: #666; display: block; margin-top: 15px;">작성일: {{ post.created_at }}</small>
+
+        <div style="margin-top: 30px; display: flex; gap: 10px; flex-wrap: wrap;">
+            {% if post.is_private %}
+                <a href="/check_password/{{ post.id }}/update" class="action-button">수정</a>
+                <a href="/check_password/{{ post.id }}/delete" class="action-button">삭제</a>
+            {% else %}
+                {% if session.get('user_id') == post.user_id %}
+                    <a href="/update/{{ post.id }}" class="action-button">수정</a>
+                    <a href="/delete/{{ post.id }}" onclick="return confirm('정말 삭제하시겠습니까?');" class="action-button">🗑️ 삭제</a>
+                {% endif %}
+            {% endif %}
+            <a href="/" class="action-button">목록으로</a>
+        </div>
+    </div>
+</body>
+</html>
